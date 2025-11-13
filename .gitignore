@@ -1,12 +1,56 @@
-# Python global ignores
-__pycache__/
-*.pyc
+pycache/
+*.py[cod]
 *.pyo
 *.pyd
+*.pdb
 
-# Virtual environments
+Byte-compiled
+
+*$py.class
+
+Virtual environments
+
 venv/
 .env/
+.venv/
 
-# SQLite DB files
+Distribution / packaging
+
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+SQLite database files
+
 *.db
+
+Logs
+
+*.log
+
+VSCode / editors
+
+.vscode/
+.idea/
+
+OS-specific
+
+.DS_Store
+Thumbs.db
+
+Python project-specific
+
+.env
+*.sqlite3
