@@ -1,0 +1,12 @@
+# Python global ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+
+# SQLite DB files
+*.db
