@@ -16,7 +16,7 @@ def get_db():
 
 @app.get("/")
 def root():
-    return {"message": "CRUD API is running ✅"}
+    return {"message": "CRUD API is running"}
 
 @app.post("/items", response_model=schemas.ItemResponse)
 def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
