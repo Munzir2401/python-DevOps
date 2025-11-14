@@ -37,7 +37,7 @@ http://localhost:8000
 
 http://localhost:8000/docs
 
-python crud_test.py
+python3 crud_test.py
 ```
 
 Notes
