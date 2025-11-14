@@ -128,7 +128,7 @@ Expected console output:
  Email sent successfully!
 
 
-**Maintenance and Improvements**
+## Maintenance and Improvements
 
 Extend city list or make it configurable through environment variables.
 
