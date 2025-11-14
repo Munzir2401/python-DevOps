@@ -78,9 +78,10 @@ lambda-aqi/
 
 ## Deployment Instructions
 
+```
 ### Step 1: Package the Code
 Create a zip file for Lambda deployment:
-```bash
+
 zip -r lambda_aqi.zip aqi_notify.py requirements.txt
 
 Step 2: Upload to AWS Lambda
@@ -105,9 +106,15 @@ Choose Schedule pattern
 Use cron syntax to set run times (example: cron(0 8,13,18,23 * * ? *))
 
 Select your Lambda function as the target. 
-
 ```
+
+Local Testing
+
+To test locally:
+
+```bash
 python3 aqi_notify.py
+
 ```
 
 Expected console output:
