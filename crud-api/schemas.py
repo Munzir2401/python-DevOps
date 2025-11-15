@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class ItemBase(BaseModel):
     name: str
-    description: str | None = None
+    description: str
 
 class ItemCreate(ItemBase):
     pass
@@ -10,9 +10,8 @@ class ItemCreate(ItemBase):
 class ItemUpdate(ItemBase):
     pass
 
-class ItemResponse(ItemBase):
+class Item(ItemBase):
     id: int
 
     class Config:
         from_attributes = True
-
