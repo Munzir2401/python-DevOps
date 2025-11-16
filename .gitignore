@@ -54,3 +54,5 @@ Python project-specific
 
 .env
 *.sqlite3
+
+REAL_WORLD_ANALOGY.md
