@@ -1,4 +1,5 @@
 import os
+import logging
 from fastapi import FastAPI, HTTPException, Depends, Request
 from sqlalchemy.orm import Session
 from jose import jwt
@@ -9,6 +10,14 @@ from database import SessionLocal, engine
 
 from dotenv import load_dotenv
 load_dotenv()
+
+# Configure logging for the application
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 
 # ---------------------------
 # Create DB Tables
@@ -182,7 +191,11 @@ def root():
 def create_item(item: schemas.ItemCreate,
                 db: Session = Depends(get_db),
                 payload=Depends(verify_jwt)):
-    return crud.create_item(db, item)
+    try:
+        return crud.create_item(db, item)
+    except Exception as e:
+        logger.error("Error creating item", exc_info=True)
+        raise HTTPException(status_code=500, detail="Failed to create item")
 
 @app.get("/items")
 def read_items(db: Session = Depends(get_db),
@@ -193,11 +206,29 @@ def read_items(db: Session = Depends(get_db),
 def update_item(item_id: int, item: schemas.ItemUpdate,
                 db: Session = Depends(get_db),
                 payload=Depends(verify_jwt)):
-    return crud.update_item(db, item_id, item)
+    try:
+        result = crud.update_item(db, item_id, item)
+        if result is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Error updating item with id=%s", item_id, exc_info=True)
+        raise HTTPException(status_code=500, detail="Failed to update item")
 
 @app.delete("/items/{item_id}")
 def delete_item(item_id: int,
                 db: Session = Depends(get_db),
                 payload=Depends(verify_jwt)):
-    return crud.delete_item(db, item_id)
+    try:
+        result = crud.delete_item(db, item_id)
+        if result is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        return {"message": "Item deleted", "item": result}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Error deleting item with id=%s", item_id, exc_info=True)
+        raise HTTPException(status_code=500, detail="Failed to delete item")
 
